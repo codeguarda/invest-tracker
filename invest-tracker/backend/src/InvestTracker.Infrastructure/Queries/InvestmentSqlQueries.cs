@@ -1,0 +1,23 @@
+using Dapper;
+using Npgsql;
+using InvestTracker.Contracts.DTOs;
+
+namespace InvestTracker.Infrastructure.Queries;
+
+public sealed class InvestmentSqlQueries
+{
+    private readonly NpgsqlConnection _conn;
+    public InvestmentSqlQueries(NpgsqlConnection conn) => _conn = conn;
+
+    public async Task<IEnumerable<InvestmentListItemDto>> ListByUserAsync(Guid userId, int skip, int take)
+    {
+        var rows = await _conn.QueryAsync<InvestmentListItemDto>(@"
+            SELECT id, type, amount, to_char(date, 'YYYY-MM-DD') as date, description
+            FROM investments
+            WHERE user_id = @userId
+            ORDER BY date DESC
+            OFFSET @skip LIMIT @take
+        ", new { userId, skip, take });
+        return rows;
+    }
+}

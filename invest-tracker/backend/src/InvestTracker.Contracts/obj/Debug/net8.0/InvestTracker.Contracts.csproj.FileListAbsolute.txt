@@ -1,0 +1,11 @@
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/bin/Debug/net8.0/InvestTracker.Contracts.deps.json
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/bin/Debug/net8.0/InvestTracker.Contracts.dll
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/bin/Debug/net8.0/InvestTracker.Contracts.pdb
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/InvestTracker.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/InvestTracker.Contracts.AssemblyInfoInputs.cache
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/InvestTracker.Contracts.AssemblyInfo.cs
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/InvestTracker.Contracts.csproj.CoreCompileInputs.cache
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/InvestTracker.Contracts.dll
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/refint/InvestTracker.Contracts.dll
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/InvestTracker.Contracts.pdb
+/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/obj/Debug/net8.0/ref/InvestTracker.Contracts.dll

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "G47aJ8/12igU6VEOQ3DeR6qTULBLPuNbZsWPoWxCw9Q=",
+  "Source": "InvestTracker.Api",
+  "BasePath": "_content/InvestTracker.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
