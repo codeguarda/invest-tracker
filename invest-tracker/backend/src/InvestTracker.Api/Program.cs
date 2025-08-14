@@ -11,7 +11,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MongoDB.Driver;           // ⬅️ importante p/ tipos do Mongo
+using Microsoft.OpenApi.Models;        // 👈 necessário para Swagger c/ Bearer
+using MongoDB.Driver;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,7 +45,7 @@ builder.Services.AddAuthentication(o =>
 })
 .AddJwtBearer(o =>
 {
-    // mantém os nomes das claims (ex.: "sub" não vira NameIdentifier automaticamente)
+    // mantém os nomes das claims (ex.: "sub" continua "sub")
     o.MapInboundClaims = false;
 
     o.TokenValidationParameters = new TokenValidationParameters
@@ -61,7 +62,6 @@ builder.Services.AddAuthorization();
 
 // ===== MediatR + AutoMapper =====
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateInvestmentHandler).Assembly));
-// Carrega profiles do Application (em vez de typeof(Program))
 builder.Services.AddAutoMapper(typeof(CreateInvestmentHandler).Assembly);
 
 // ===== EF Core (Postgres) =====
@@ -86,9 +86,33 @@ builder.Services.AddSingleton(sp =>
 });
 builder.Services.AddSingleton<MongoContext>();
 
-// ===== Swagger =====
+// ===== Swagger (com JWT Bearer) =====
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "InvestTracker API", Version = "v1" });
+
+    var bearerScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "JWT Bearer. Cole **apenas** o token (sem 'Bearer ').",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    };
+
+    c.AddSecurityDefinition("Bearer", bearerScheme);
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { bearerScheme, Array.Empty<string>() }
+    });
+});
 
 var app = builder.Build();
 
