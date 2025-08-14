@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj",
+      "projectUniqueName": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj",
       "projectName": "InvestTracker.Domain",
-      "projectPath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj",
+      "projectPath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj",
       "packagesPath": "/home/bguarda/.nuget/packages/",
-      "outputPath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/",
+      "outputPath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/bguarda/.nuget/NuGet/NuGet.Config"

@@ -12,11 +12,17 @@ public sealed class InvestmentSqlQueries
     public async Task<IEnumerable<InvestmentListItemDto>> ListByUserAsync(Guid userId, int skip, int take)
     {
         var rows = await _conn.QueryAsync<InvestmentListItemDto>(@"
-            SELECT id, type, amount, to_char(date, 'YYYY-MM-DD') as date, description
-            FROM investments
-            WHERE user_id = @userId
-            ORDER BY date DESC
-            OFFSET @skip LIMIT @take
+            SELECT
+                i.""Id""             AS ""Id"",
+                i.""Type""           AS ""Type"",
+                i.""Amount""         AS ""Amount"",
+                i.""Date""           AS ""Date"",
+                i.""Description""    AS ""Description"",
+                i.""CreatedAtUtc""   AS ""CreatedAtUtc""
+            FROM investments AS i
+            WHERE i.""UserId"" = @userId
+            ORDER BY i.""Date"" DESC, i.""CreatedAtUtc"" DESC
+            OFFSET @skip LIMIT @take;
         ", new { userId, skip, take });
         return rows;
     }

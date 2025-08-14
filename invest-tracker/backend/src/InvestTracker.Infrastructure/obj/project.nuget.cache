@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eEz2ZVcAh8A=",
+  "dgSpecHash": "GEQjAG1uFTk=",
   "success": true,
-  "projectFilePath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Infrastructure/InvestTracker.Infrastructure.csproj",
+  "projectFilePath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Infrastructure/InvestTracker.Infrastructure.csproj",
   "expectedPackageFiles": [
     "/home/bguarda/.nuget/packages/awssdk.core/3.7.100.14/awssdk.core.3.7.100.14.nupkg.sha512",
     "/home/bguarda/.nuget/packages/awssdk.securitytoken/3.7.100.14/awssdk.securitytoken.3.7.100.14.nupkg.sha512",

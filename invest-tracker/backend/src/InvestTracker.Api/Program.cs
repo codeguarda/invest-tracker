@@ -11,12 +11,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Driver;           // ⬅️ importante p/ tipos do Mongo
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
-// ===== CORS =====
+// ===== CORS (Vite/React) =====
 var allowedOrigins = new[]
 {
     "http://localhost:5173",
@@ -43,7 +44,7 @@ builder.Services.AddAuthentication(o =>
 })
 .AddJwtBearer(o =>
 {
-    // Mantém os nomes das claims como no token (ex.: "sub" continua "sub")
+    // mantém os nomes das claims (ex.: "sub" não vira NameIdentifier automaticamente)
     o.MapInboundClaims = false;
 
     o.TokenValidationParameters = new TokenValidationParameters
@@ -60,7 +61,8 @@ builder.Services.AddAuthorization();
 
 // ===== MediatR + AutoMapper =====
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateInvestmentHandler).Assembly));
-builder.Services.AddAutoMapper(typeof(Program));
+// Carrega profiles do Application (em vez de typeof(Program))
+builder.Services.AddAutoMapper(typeof(CreateInvestmentHandler).Assembly);
 
 // ===== EF Core (Postgres) =====
 builder.Services.AddDbContext<AppWriteDbContext>(o =>
@@ -70,8 +72,18 @@ builder.Services.AddDbContext<AppWriteDbContext>(o =>
 builder.Services.AddScoped<NpgsqlConnection>(_ => new NpgsqlConnection(config.GetConnectionString("Postgres")));
 builder.Services.AddScoped<InvestmentSqlQueries>();
 
-// ===== Mongo =====
-builder.Services.Configure<MongoOptions>(config.GetSection("Mongo"));
+// ===== Mongo (IMongoClient + IMongoDatabase + MongoContext) =====
+builder.Services.AddSingleton<IMongoClient>(_ =>
+{
+    var cs = config["Mongo:ConnectionString"] ?? "mongodb://localhost:27017";
+    return new MongoClient(cs);
+});
+builder.Services.AddSingleton(sp =>
+{
+    var dbName = config["Mongo:Database"] ?? "investread";
+    var client = sp.GetRequiredService<IMongoClient>();
+    return client.GetDatabase(dbName);
+});
 builder.Services.AddSingleton<MongoContext>();
 
 // ===== Swagger =====
@@ -83,7 +95,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// ⬇️ CORS antes de auth
+// CORS antes de auth
 app.UseCors("DevCors");
 
 app.UseAuthentication();
@@ -103,7 +115,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Helper p/ obter UserId do token (sub -> Guid)
+// Helper p/ extrair Guid do token
 static bool TryGetUserId(ClaimsPrincipal user, out Guid userId)
 {
     var idStr =
@@ -125,7 +137,6 @@ app.MapPost("/api/auth/login", async (LoginRequest req, AppWriteDbContext db) =>
 
     var claims = new[]
     {
-        // mantém "sub" e também adiciona NameIdentifier para máxima compatibilidade
         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
         new Claim(ClaimTypes.NameIdentifier,     user.Id.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, user.Email)

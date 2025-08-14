@@ -3035,11 +3035,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Infrastructure/InvestTracker.Infrastructure.csproj",
+      "projectUniqueName": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Infrastructure/InvestTracker.Infrastructure.csproj",
       "projectName": "InvestTracker.Infrastructure",
-      "projectPath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Infrastructure/InvestTracker.Infrastructure.csproj",
+      "projectPath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Infrastructure/InvestTracker.Infrastructure.csproj",
       "packagesPath": "/home/bguarda/.nuget/packages/",
-      "outputPath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Infrastructure/obj/",
+      "outputPath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Infrastructure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/bguarda/.nuget/NuGet/NuGet.Config"
@@ -3054,11 +3054,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/InvestTracker.Contracts.csproj": {
-              "projectPath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Contracts/InvestTracker.Contracts.csproj"
+            "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Contracts/InvestTracker.Contracts.csproj": {
+              "projectPath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Contracts/InvestTracker.Contracts.csproj"
             },
-            "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj": {
-              "projectPath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj"
+            "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj": {
+              "projectPath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj"
             }
           }
         }

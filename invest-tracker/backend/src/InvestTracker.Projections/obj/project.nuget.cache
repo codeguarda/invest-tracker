@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "f0OEUaLlEWg=",
+  "dgSpecHash": "7U6P8VwQ/bc=",
   "success": true,
-  "projectFilePath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Projections/InvestTracker.Projections.csproj",
+  "projectFilePath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Projections/InvestTracker.Projections.csproj",
   "expectedPackageFiles": [
     "/home/bguarda/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/home/bguarda/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -11,7 +11,7 @@ docker compose up -d
 ```
 
 ## Rodar API (terminal separado)
-cd ~/Documentos/invest-tracker/backend/src/InvestTracker.Api
+cd invest-tracker/backend/src/InvestTracker.Api
 export ASPNETCORE_ENVIRONMENT=Development
 
 # (se ainda não tiver) instalar a CLI do EF
@@ -38,20 +38,19 @@ Na primeira execução, o EF cria/migra o banco e **semeia** um usuário:
 > Ajuste o segredo JWT em `appsettings.json` (chave `Jwt:Key`).
 
 ## Rodar Worker de Projeções
-```bash
+
 cd backend/src/InvestTracker.Projections
 dotnet run
-```
 
 ## Frontend
-cd ~/Documentos/invest-tracker/frontend
+cd invest-tracker/frontend
 
 # apontar o front para a API
 echo 'VITE_API_URL=http://localhost:5187' > .env.local
 
 npm i
 npm run dev -- --host
-```
+
 
 ## Fluxo de teste
 1. Acesse `http://localhost:5173/login` e entre com `demo@local` / `demo123`.

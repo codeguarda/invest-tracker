@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NmmY8ji30iA=",
+  "dgSpecHash": "gJ0NaWjFG9o=",
   "success": true,
-  "projectFilePath": "/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj",
+  "projectFilePath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/InvestTracker.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
