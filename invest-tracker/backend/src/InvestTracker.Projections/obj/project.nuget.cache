@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7U6P8VwQ/bc=",
+  "dgSpecHash": "b361Xr5JJF8=",
   "success": true,
   "projectFilePath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Projections/InvestTracker.Projections.csproj",
   "expectedPackageFiles": [
@@ -14,10 +14,10 @@
     "/home/bguarda/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/home/bguarda/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/11.1.0/mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore/8.0.6/microsoft.entityframeworkcore.8.0.6.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.6/microsoft.entityframeworkcore.abstractions.8.0.6.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.6/microsoft.entityframeworkcore.analyzers.8.0.6.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.4/microsoft.entityframeworkcore.relational.8.0.4.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore/8.0.8/microsoft.entityframeworkcore.8.0.8.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.8/microsoft.entityframeworkcore.abstractions.8.0.8.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.8/microsoft.entityframeworkcore.analyzers.8.0.8.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.8/microsoft.entityframeworkcore.relational.8.0.8.nupkg.sha512",
     "/home/bguarda/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/microsoft.extensions.caching.memory/8.0.0/microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/microsoft.extensions.configuration/8.0.0/microsoft.extensions.configuration.8.0.0.nupkg.sha512",
@@ -53,8 +53,8 @@
     "/home/bguarda/.nuget/packages/mongodb.driver/2.25.0/mongodb.driver.2.25.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/mongodb.driver.core/2.25.0/mongodb.driver.core.2.25.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/mongodb.libmongocrypt/1.8.2/mongodb.libmongocrypt.1.8.2.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/npgsql/8.0.3/npgsql.8.0.3.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.4/npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/npgsql/8.0.4/npgsql.8.0.4.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.8/npgsql.entityframeworkcore.postgresql.8.0.8.nupkg.sha512",
     "/home/bguarda/.nuget/packages/sharpcompress/0.30.1/sharpcompress.0.30.1.nupkg.sha512",
     "/home/bguarda/.nuget/packages/snappier/1.0.0/snappier.1.0.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
@@ -73,7 +73,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 12.1.1 was resolved.",
+      "message": "Versão detectada do pacote fora da restrição de dependência: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requer MediatR (>= 11.0.0 && < 12.0.0), mas a versão MediatR 12.1.1 foi resolvida.",
       "libraryId": "MediatR",
       "targetGraphs": [
         "net8.0"

@@ -18,7 +18,7 @@ public sealed class GetDashboardHandler : IRequestHandler<GetDashboardQuery, IRe
         if (req.To   is not null) and.Add(Builders<DashboardReadModel>.Filter.Lte(x => x.Month, req.To.Value.ToString("yyyy-MM")));
 
         var final = Builders<DashboardReadModel>.Filter.And(and);
-        var docs = await _mongo.Dashboard.Find(final).SortBy(x => x.Month).ToListAsync(ct);
+        var docs = await _mongo.Dashboards.Find(final).SortBy(x => x.Month).ToListAsync(ct);
         return docs.Select(d => new DashboardItemDto
         {
             Month = d.Month,

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Linq;
 using InvestTracker.Infrastructure.Mongo;
 using InvestTracker.Infrastructure.Outbox;
@@ -112,5 +113,5 @@ public sealed class OutboxProjectionWorker : BackgroundService
         }
     }
 
-    private sealed record InvestmentCreatedV1(Guid Id, Guid UserId, string Type, decimal Amount, string Date);
+    private sealed record InvestmentCreatedV1(Guid Id, Guid UserId, string Type, [property: JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)] decimal Amount, string Date);
 }

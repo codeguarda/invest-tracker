@@ -1,14 +1,3 @@
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/bin/Debug/net8.0/InvestTracker.Domain.deps.json
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/bin/Debug/net8.0/InvestTracker.Domain.dll
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/bin/Debug/net8.0/InvestTracker.Domain.pdb
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/InvestTracker.Domain.GeneratedMSBuildEditorConfig.editorconfig
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/InvestTracker.Domain.AssemblyInfoInputs.cache
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/InvestTracker.Domain.AssemblyInfo.cs
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/InvestTracker.Domain.csproj.CoreCompileInputs.cache
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/InvestTracker.Domain.dll
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/refint/InvestTracker.Domain.dll
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/InvestTracker.Domain.pdb
-/home/bguarda/Documentos/invest-tracker/backend/src/InvestTracker.Domain/obj/Debug/net8.0/ref/InvestTracker.Domain.dll
 /home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/bin/Debug/net8.0/InvestTracker.Domain.deps.json
 /home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/bin/Debug/net8.0/InvestTracker.Domain.dll
 /home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Domain/bin/Debug/net8.0/InvestTracker.Domain.pdb

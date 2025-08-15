@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ezTNL353go8=",
+  "dgSpecHash": "yAAQM3kQ4Xc=",
   "success": true,
   "projectFilePath": "/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Api/InvestTracker.Api.csproj",
   "expectedPackageFiles": [
@@ -53,8 +53,8 @@
     "/home/bguarda/.nuget/packages/mongodb.driver.core/2.25.0/mongodb.driver.core.2.25.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/mongodb.libmongocrypt/1.8.2/mongodb.libmongocrypt.1.8.2.nupkg.sha512",
     "/home/bguarda/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/npgsql/8.0.3/npgsql.8.0.3.nupkg.sha512",
-    "/home/bguarda/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.4/npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/npgsql/8.0.4/npgsql.8.0.4.nupkg.sha512",
+    "/home/bguarda/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.8/npgsql.entityframeworkcore.postgresql.8.0.8.nupkg.sha512",
     "/home/bguarda/.nuget/packages/sharpcompress/0.30.1/sharpcompress.0.30.1.nupkg.sha512",
     "/home/bguarda/.nuget/packages/snappier/1.0.0/snappier.1.0.0.nupkg.sha512",
     "/home/bguarda/.nuget/packages/swashbuckle.aspnetcore/6.6.2/swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
@@ -88,7 +88,7 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 12.1.1 was resolved.",
+      "message": "Versão detectada do pacote fora da restrição de dependência: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requer MediatR (>= 11.0.0 && < 12.0.0), mas a versão MediatR 12.1.1 foi resolvida.",
       "libraryId": "MediatR",
       "targetGraphs": [
         "net8.0"
