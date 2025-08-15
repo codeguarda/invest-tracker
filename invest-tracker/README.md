@@ -66,11 +66,11 @@ npm run dev -- --host
 - `GET /api/investments?page=1&size=50` (autenticado) → lista (Dapper/Postgres)
 - `GET /api/dashboard?from=2025-01-01&to=2025-12-31` (autenticado) → série temporal (Mongo)
 
-## Observações
-- O exemplo cobre **Create** e **List**. Para **Update/Delete**, você pode criar novos comandos/handlers e publicar eventos de correção na Outbox (ex.: `InvestmentUpdatedV1`, `InvestmentDeletedV1`) e, no Worker, ajustar o agregado mensal (revertendo valor antigo e aplicando novo).
-- Em produção, considere:
-  - Migrations dedicadas e CI/CD.
-  - Outbox com bloqueio/concorrência robusta e política de reprocessamento.
-  - Observabilidade (OpenTelemetry).
-  - Rate limiting, CORS, versionamento de API, validação (FluentValidation).
+## Extras
+# Usuário e o database do postgres do container
+- POSTGRES_PASSWORD=app
+- POSTGRES_USER=app
+- POSTGRES_DB=investwrite
 
+## Observações
+- O exemplo cobre **Create** e **List**. Para **Update/Delete**, você pode criar novos comandos/handlers e publicar eventos de correção na Outbox (ex.: `InvestmentUpdatedV1`, `InvestmentDeletedV1`) e, no Worker, ajustar o 

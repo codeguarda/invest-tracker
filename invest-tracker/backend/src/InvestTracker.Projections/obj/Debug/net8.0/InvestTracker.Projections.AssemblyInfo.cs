@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InvestTracker.Projections")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7ce033e9c82163faddfebc47c3a266f2beaadee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60e13669207e8e6e49dd9c47b48e2036601455cd")]
 [assembly: System.Reflection.AssemblyProductAttribute("InvestTracker.Projections")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InvestTracker.Projections")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

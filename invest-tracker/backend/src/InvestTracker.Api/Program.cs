@@ -11,12 +11,19 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;        // 👈 necessário para Swagger c/ Bearer
+using Microsoft.OpenApi.Models;        //necessário para Swagger c/ Bearer
 using MongoDB.Driver;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+builder.Logging.AddConsole();
+
+builder.Services.AddDbContext<AppWriteDbContext>(o =>
+{
+    o.UseNpgsql(config.GetConnectionString("Postgres"));
+    o.EnableSensitiveDataLogging(); // vai logar valores dos parâmetros do INSERT
+});
 
 // ===== CORS (Vite/React) =====
 var allowedOrigins = new[]
@@ -179,9 +186,14 @@ app.MapPost("/api/auth/login", async (LoginRequest req, AppWriteDbContext db) =>
 });
 
 // Investments - Create
+// Investments - Create
 app.MapPost("/api/investments", async (CreateInvestmentBody body, IMediator m, ClaimsPrincipal user) =>
 {
-    if (!TryGetUserId(user, out var userId)) return Results.Unauthorized();
+    if (!TryGetUserId(user, out var userId))
+        return Results.Unauthorized();
+
+    if (userId == Guid.Empty)
+        return Results.BadRequest("UserId empty in token/claims.");
 
     var id = await m.Send(new CreateInvestmentCommand(
         userId,
@@ -190,7 +202,8 @@ app.MapPost("/api/investments", async (CreateInvestmentBody body, IMediator m, C
         DateOnly.Parse(body.Date),
         body.Description));
 
-    return Results.Created($"/api/investments/{id}", new { id });
+    // devolvemos o userId usado, para conferência rápida no Swagger
+    return Results.Created($"/api/investments/{id}", new { id, userIdUsed = userId });
 }).RequireAuthorization();
 
 // Investments - List (Dapper/Postgres)
