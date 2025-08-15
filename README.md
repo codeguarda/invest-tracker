@@ -10,11 +10,11 @@
 docker compose exec postgres psql -U app -d investwrite -c \
 'DELETE FROM outbox_messages WHERE "ProcessedAtUtc" IS NULL;'
 
-# Confirmar
+Confirmar
 docker compose exec postgres psql -U app -d investwrite -c \
 'SELECT COUNT(*) AS pending FROM outbox_messages WHERE "ProcessedAtUtc" IS NULL;'
 
-# Deletar tudo no outbox
+Deletar tudo no outbox
 docker compose exec postgres psql -U app -d investwrite -c \
 'DELETE FROM outbox_messages;'
 
@@ -31,17 +31,17 @@ docker compose exec postgres psql -U app -d investwrite -c \
 - cd backend/src/InvestTracker.Api
 - export ASPNETCORE_ENVIRONMENT=Development
 
-# (se ainda não tiver) instalar a CLI do EF
+(se ainda não tiver) instalar a CLI do EF
 - dotnet tool install --global dotnet-ef || true
 - export PATH="$HOME/.dotnet/tools:$PATH"
 
-# aplicar migrações no Postgres
+aplicar migrações no Postgres
 dotnet ef database update \
   --project "../InvestTracker.Infrastructure/InvestTracker.Infrastructure.csproj" \
   --startup-project "./InvestTracker.Api.csproj" \
   --context "InvestTracker.Infrastructure.Persistence.AppWriteDbContext"
 
-# liberar a porta, se ocupada
+liberar a porta, se ocupada
 - sudo fuser -k 5187/tcp || true
 
 # rodar API
@@ -59,7 +59,7 @@ dotnet run
 ## Frontend (terminal separado)
 cd frontend
 
-# apontar o front para a API
+apontar o front para a API
 echo 'VITE_API_URL=http://localhost:5187' > .env.local
 
 npm i
