@@ -6,7 +6,7 @@
 
 
 ## Limpar, Bancos
-# Mensagens para processa no Worker
+Mensagens para processa no Worker
 docker compose exec postgres psql -U app -d investwrite -c \
 'DELETE FROM outbox_messages WHERE "ProcessedAtUtc" IS NULL;'
 
