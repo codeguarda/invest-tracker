@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InvestTracker.Contracts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60e13669207e8e6e49dd9c47b48e2036601455cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f46dbf84ce366979b1d8f14a9444b4c53ab5e2e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("InvestTracker.Contracts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InvestTracker.Contracts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
