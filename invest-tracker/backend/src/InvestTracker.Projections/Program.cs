@@ -1,14 +1,15 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Linq;
-using InvestTracker.Infrastructure.Mongo;
-using InvestTracker.Infrastructure.Outbox;
+using System.Globalization;
+using InvestTracker.Infrastructure.Mongo;     // ⬅️ usa os tipos do Infrastructure
 using InvestTracker.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using MongoDB.Bson; // ToJson() no log
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((ctx, services) =>
@@ -19,23 +20,20 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddDbContext<AppWriteDbContext>(o =>
             o.UseNpgsql(cfg.GetConnectionString("Postgres")));
 
-        // MongoDB (IMongoClient + IMongoDatabase + MongoContext)
+        // MongoDB (IMongoClient + IMongoDatabase + MongoContext do Infrastructure)
         services.AddSingleton<IMongoClient>(_ =>
         {
             var cs = cfg["Mongo:ConnectionString"] ?? "mongodb://localhost:27017";
             return new MongoClient(cs);
         });
-
         services.AddSingleton(sp =>
         {
             var dbName = cfg["Mongo:Database"] ?? "investread";
             var client = sp.GetRequiredService<IMongoClient>();
             return client.GetDatabase(dbName);
         });
-
         services.AddSingleton<MongoContext>();
 
-        // Worker + Logging
         services.AddHostedService<OutboxProjectionWorker>();
         services.AddLogging(b => b.AddConsole());
     })
@@ -62,7 +60,7 @@ public sealed class OutboxProjectionWorker : BackgroundService
             try
             {
                 using var scope = _sp.CreateScope();
-                var db = scope.ServiceProvider.GetRequiredService<AppWriteDbContext>();
+                var db    = scope.ServiceProvider.GetRequiredService<AppWriteDbContext>();
                 var mongo = scope.ServiceProvider.GetRequiredService<MongoContext>();
 
                 var messages = await db.OutboxMessages
@@ -73,32 +71,56 @@ public sealed class OutboxProjectionWorker : BackgroundService
 
                 foreach (var msg in messages)
                 {
-                    if (msg.Type == "InvestmentCreatedV1")
+                    try
                     {
-                        var e = JsonSerializer.Deserialize<InvestmentCreatedV1>(msg.Payload)!;
+                        if (msg.Type == "InvestmentCreatedV1")
+                        {
+                            var e = JsonSerializer.Deserialize<InvestmentCreatedV1>(msg.Payload)!;
+                            var month = e.Date[..7]; // yyyy-MM
 
-                        var month = e.Date[..7]; // yyyy-MM
+                            // força numérico no $inc para evitar string
+                            var amountDouble = Convert.ToDouble(e.Amount, CultureInfo.InvariantCulture);
 
-                        var filter = Builders<DashboardReadModel>.Filter.And(
-                            Builders<DashboardReadModel>.Filter.Eq(x => x.UserId, e.UserId),
-                            Builders<DashboardReadModel>.Filter.Eq(x => x.Month, month)
-                        );
+                            var filter = Builders<DashboardReadModel>.Filter.And(
+                                Builders<DashboardReadModel>.Filter.Eq(x => x.UserId, e.UserId),
+                                Builders<DashboardReadModel>.Filter.Eq(x => x.Month, month)
+                            );
 
-                        var update = Builders<DashboardReadModel>.Update
-                            .Inc(x => x.TotalInvested, e.Amount)
-                            .Inc($"ByType.{e.Type}", e.Amount)
-                            .SetOnInsert(x => x.UserId, e.UserId)
-                            .SetOnInsert(x => x.Month, month);
+                            // Nada de Set/SetOnInsert em ByType/TotalInvested (apenas $inc)
+                          var update = Builders<DashboardReadModel>.Update
+                                .Inc("TotalInvested", amountDouble)
+                                .Inc($"ByType.{e.Type}", amountDouble)
+                                .SetOnInsert(x => x.UserId, e.UserId)
+                                .SetOnInsert(x => x.Month, month);
 
-                        await mongo.Dashboards.UpdateOneAsync(
-                            filter,
-                            update,
-                            new UpdateOptions { IsUpsert = true },
-                            ct
-                        );
+                            // Log do filtro/update renderizados (para conferência do tipo)
+                            var renderedUpdate = update.Render(
+                                mongo.Dashboard.DocumentSerializer,
+                                mongo.Dashboard.Settings.SerializerRegistry);
+                            var renderedFilter = filter.Render(
+                                mongo.Dashboard.DocumentSerializer,
+                                mongo.Dashboard.Settings.SerializerRegistry);
+
+                            _log.LogInformation("DEBUG Mongo UpdateOne filter={Filter} update={Update}",
+                                renderedFilter.ToJson(), renderedUpdate.ToJson());
+
+                            await mongo.Dashboard.UpdateOneAsync(
+                                filter,
+                                update,
+                                new UpdateOptions { IsUpsert = true },
+                                ct
+                            );
+                        }
+
+                        msg.ProcessedAtUtc = DateTime.UtcNow;
                     }
-
-                    msg.ProcessedAtUtc = DateTime.UtcNow;
+                    catch (Exception exMsg)
+                    {
+                        _log.LogError(exMsg,
+                            "Error projecting message {MessageId} ({Type})",
+                            msg.Id, msg.Type);
+                        // mantém sem ProcessedAtUtc para reprocessar
+                    }
                 }
 
                 if (messages.Count > 0)
@@ -113,5 +135,12 @@ public sealed class OutboxProjectionWorker : BackgroundService
         }
     }
 
-    private sealed record InvestmentCreatedV1(Guid Id, Guid UserId, string Type, [property: JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)] decimal Amount, string Date);
+    // Lê Amount como string ou número
+    private sealed record InvestmentCreatedV1(
+        Guid Id,
+        Guid UserId,
+        string Type,
+        [property: JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)] decimal Amount,
+        string Date
+    );
 }

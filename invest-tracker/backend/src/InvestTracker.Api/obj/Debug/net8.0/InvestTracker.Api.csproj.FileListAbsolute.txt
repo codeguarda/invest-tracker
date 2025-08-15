@@ -138,3 +138,4 @@
 /home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Api/obj/Debug/net8.0/InvestTracker.Api.pdb
 /home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Api/obj/Debug/net8.0/InvestTracker.Api.genruntimeconfig.cache
 /home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Api/obj/Debug/net8.0/ref/InvestTracker.Api.dll
+/home/bguarda/Documentos/GitHub/invest-tracker/backend/src/InvestTracker.Api/bin/Debug/net8.0/appsettings.Development.json

@@ -1,3 +1,4 @@
+using System.Linq;                  // ⬅️ ADICIONE
 using InvestTracker.Infrastructure.Mongo;
 using MediatR;
 using MongoDB.Driver;
@@ -18,12 +19,17 @@ public sealed class GetDashboardHandler : IRequestHandler<GetDashboardQuery, IRe
         if (req.To   is not null) and.Add(Builders<DashboardReadModel>.Filter.Lte(x => x.Month, req.To.Value.ToString("yyyy-MM")));
 
         var final = Builders<DashboardReadModel>.Filter.And(and);
-        var docs = await _mongo.Dashboards.Find(final).SortBy(x => x.Month).ToListAsync(ct);
-        return docs.Select(d => new DashboardItemDto
+        var docs = await _mongo.Dashboard.Find(final).SortBy(x => x.Month).ToListAsync(ct);
+
+        // ⬇️ CONVERSÕES: double -> decimal e Dictionary<string,double> -> Dictionary<string,decimal>
+        var result = docs.Select(d => new DashboardItemDto
         {
             Month = d.Month,
-            Total = d.TotalInvested,
-            ByType = d.ByType
+            Total = (decimal)d.TotalInvested,
+            ByType = (d.ByType ?? new Dictionary<string, double>())
+                        .ToDictionary(kv => kv.Key, kv => (decimal)kv.Value)
         }).ToList();
+
+        return result;
     }
 }
