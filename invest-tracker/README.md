@@ -73,4 +73,3 @@ npm run dev -- --host
 - POSTGRES_DB=investwrite
 
 ## Observações
-- O exemplo cobre **Create** e **List**. Para **Update/Delete**, você pode criar novos comandos/handlers e publicar eventos de correção na Outbox (ex.: `InvestmentUpdatedV1`, `InvestmentDeletedV1`) e, no Worker, ajustar o 
