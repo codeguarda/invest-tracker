@@ -47,7 +47,7 @@ liberar a porta, se ocupada
 # rodar API
 - dotnet run --no-launch-profile --urls "http://0.0.0.0:5187"
 
-# Alternative 
+Alternative 
 - DOTNET_ENVIRONMENT=Development dotnet run --urls http://localhost:5187
 
 
