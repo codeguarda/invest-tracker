@@ -48,10 +48,10 @@ dotnet ef database update \
 liberar a porta, se ocupada
 - sudo fuser -k 5187/tcp || true
 
-# rodar API
+rodar API
 - dotnet run --no-launch-profile --urls "http://0.0.0.0:5187"
 
-Alternative 
+Alternativa 
 - DOTNET_ENVIRONMENT=Development dotnet run --urls http://localhost:5187
 
 
@@ -69,12 +69,6 @@ echo 'VITE_API_URL=http://localhost:5187' > .env.local
 npm i
 npm run dev -- --host
 
-# Observações
-Na primeira execução, o EF cria/migra o banco e **semeia** um usuário:
-- Email: `demo@local`
-- Senha: `demo123`
-
-> Ajuste o segredo JWT em `appsettings.json` (chave `Jwt:Key`).
 
 ## Fluxo de teste
 1. Acesse `http://localhost:5173/login` e entre com `demo@local` / `demo123`.
