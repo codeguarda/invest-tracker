@@ -20,8 +20,12 @@ docker compose exec postgres psql -U app -d investwrite -c \
 
 
 ## build
-- cd backend/src
-- dotnet build ./InvestTracker.Api/InvestTracker.Api.csproj -v minimal
+build de tudo
+- dotnet build InvestTracker.sln -v minimal
+
+(opcional) restore e depois build
+- dotnet restore InvestTracker.sln
+- dotnet build   InvestTracker.sln -v minimal
 
 ## Subir bancos
 - cd backend/docker

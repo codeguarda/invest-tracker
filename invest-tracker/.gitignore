@@ -1,0 +1,59 @@
+# --- Geral / SO ---
+.DS_Store
+Thumbs.db
+
+# --- IDEs ---
+.vscode/
+.vs/
+.idea/
+
+# --- Logs & tmp ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.tmp/
+temp/
+tmp/
+
+# --- Dotenv / credenciais locais ---
+.env
+.env.*
+!.env.example
+
+# ========================
+# BACKEND (.NET)
+# ========================
+# Build
+**/bin/
+**/obj/
+# Testes
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+# Outros
+*.user
+*.suo
+_ReSharper.Caches/
+
+# ========================
+# FRONTEND (React/Vite)
+# ========================
+node_modules/
+dist/
+.cache/
+.eslintcache
+*.tsbuildinfo
+
+# Storybook / Docs (caso use)
+storybook-static/
+
+# ========================
+# Docker / DB locais
+# ========================
+docker-data/
+*.sqlite
+*.db
