@@ -96,8 +96,6 @@ builder.Services.AddSingleton<MongoContext>();
 // ===== Swagger (com JWT Bearer) =====
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "InvestTracker API", Version = "v1" });
     var securityScheme = new OpenApiSecurityScheme
