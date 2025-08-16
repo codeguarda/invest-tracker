@@ -96,28 +96,23 @@ builder.Services.AddSingleton<MongoContext>();
 // ===== Swagger (com JWT Bearer) =====
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "InvestTracker API", Version = "v1" });
-
-    var bearerScheme = new OpenApiSecurityScheme
+    var securityScheme = new OpenApiSecurityScheme
     {
         Name = "Authorization",
-        Description = "JWT Bearer. Cole **apenas** o token (sem 'Bearer ').",
-        In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
         Scheme = "bearer",
         BearerFormat = "JWT",
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "Bearer"
-        }
+        In = ParameterLocation.Header,
+        Description = "Informe: Bearer {seu_token}"
     };
-
-    c.AddSecurityDefinition("Bearer", bearerScheme);
+    c.AddSecurityDefinition("Bearer", securityScheme);
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        { bearerScheme, Array.Empty<string>() }
+        { securityScheme, Array.Empty<string>() }
     });
 });
 
@@ -133,18 +128,50 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // ===== Seed demo user =====
-using (var scope = app.Services.CreateScope())
+// using (var scope = app.Services.CreateScope())
+// {
+//     var db = scope.ServiceProvider.GetRequiredService<AppWriteDbContext>();
+//     await db.Database.MigrateAsync();
+//     if (!await db.Users.AnyAsync())
+//     {
+//         var demo = User.Create("demo@local", BCrypt.Net.BCrypt.HashPassword("demo123"));
+//         db.Users.Add(demo);
+//         await db.SaveChangesAsync();
+//         Console.WriteLine($"Seeded demo user: demo@local / demo123 (Id: {demo.Id})");
+//     }
+// }
+
+// Auth - Register
+app.MapPost("/api/auth/register", async (LoginRequest req, AppWriteDbContext db) =>
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppWriteDbContext>();
-    await db.Database.MigrateAsync();
-    if (!await db.Users.AnyAsync())
+    var email = req.Email.Trim().ToLowerInvariant();
+    if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(req.Password))
+        return Results.BadRequest(new { error = "Email e senha obrigatórios." });
+
+    var exists = await db.Users.AnyAsync(u => u.Email == email);
+    if (exists) return Results.Conflict(new { error = "Email já cadastrado." });
+
+    var user = User.Create(email, BCrypt.Net.BCrypt.HashPassword(req.Password));
+    db.Users.Add(user);
+    await db.SaveChangesAsync();
+
+    // Gera o mesmo JWT do login
+    var claims = new[]
     {
-        var demo = User.Create("demo@local", BCrypt.Net.BCrypt.HashPassword("demo123"));
-        db.Users.Add(demo);
-        await db.SaveChangesAsync();
-        Console.WriteLine($"Seeded demo user: demo@local / demo123 (Id: {demo.Id})");
-    }
-}
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+        new Claim(ClaimTypes.NameIdentifier,     user.Id.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email)
+    };
+    var token = new JwtSecurityToken(
+        issuer:  config["Jwt:Issuer"],
+        audience: config["Jwt:Audience"],
+        claims: claims,
+        expires: DateTime.UtcNow.AddHours(8),
+        signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+    );
+    var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+    return Results.Created("/api/auth/register", new { token = jwt });
+});
 
 // Helper p/ extrair Guid do token
 static bool TryGetUserId(ClaimsPrincipal user, out Guid userId)
